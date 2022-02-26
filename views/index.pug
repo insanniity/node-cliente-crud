@@ -1,0 +1,26 @@
+extends app.pug
+block titulo
+    title Lista Clientes
+  
+block conteudo
+    h1 Lista de clientes
+    table.table
+        thead
+            tr
+                th(scope="col") Id
+                th(scope="col") Nome
+                th(scope="col") Email
+                th(scope="col") Ações
+        tbody
+            each cliente in clientes
+                tr
+                    td(scope="row") #{cliente.id}
+                    td 
+                        a(href=`/clientes/${cliente.id}`) #{cliente.name}
+                    td #{cliente.email}
+                    td 
+                        a(href=`/clientes/${cliente.id}/edit`).btn.btn-primary(type="button") Editar
+                        form(method="POST", action=`/clientes/${cliente.id}?_method=DELETE`, style="display: inline;")                            
+                            button(type="submit", value="Excluir", onclick="return confirm('Deseja realmente excluir?')", class="btn btn-danger") Excluir
+    a(href="/clientes/create")
+        button.btn.btn-primary(type="button") Novo Cliente
